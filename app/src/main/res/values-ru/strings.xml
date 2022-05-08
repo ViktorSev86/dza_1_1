@@ -2,4 +2,7 @@
 <resources>
     <string name="app_name">НМедиа</string>
     <string name="nmedia">НМедиа!</string>
+    <string name="avatar_description">Автор аватара</string>
+    <string name="author_name">Нетология. Университет интернет-профессий</string>
+    <string name="date">21 мая в 18:36</string>
 </resources>

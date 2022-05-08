@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">NMedia</string>
     <string name="nmedia">NMedia!</string>
+    <string name="avatar_description">Author avatar</string>
+    <string name="author_name">Netology. University of digital works</string>
+    <string name="date">21 may 18:36</string>
+
 </resources>
