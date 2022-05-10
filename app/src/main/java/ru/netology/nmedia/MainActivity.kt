@@ -27,7 +27,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         with(binding) {
             avatar.setImageResource(R.drawable.ic_channel_foreground)
             authorName.text = post.author
-            date.text = post.content
+            date.text = post.published
+            text.text = post.content
             if (post.likedByMe) {
                 likes.setImageResource(R.drawable.ic_liked_favorite_24)
             } else likes.setImageResource(R.drawable.ic_baseline_favorite_border_24)
