@@ -5,11 +5,10 @@ data class Post(
     val author: String,
     val content: String,
     val published: String,
-    var likes: Int = 0,
     var likedByMe: Boolean = false,
-    var countLikes: UInt = 0u,
-    var countShare: UInt = 0u,
-    var countGlaz: UInt = 0u
+    var countLikes: UInt,
+    var countShare: UInt,
+    var countGlaz: UInt
 ) {
     fun uIntToString(n:UInt):String {
         val res = when {

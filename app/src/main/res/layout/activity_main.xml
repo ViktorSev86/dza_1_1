@@ -99,7 +99,7 @@
         android:layout_marginEnd="@dimen/common_spacing"
         android:ellipsize="end"
         android:singleLine="true"
-        android:text="10"
+        android:text="0"
         app:layout_constraintStart_toEndOf="@id/likes"
         app:layout_constraintTop_toTopOf="@id/downBarier"
         />
@@ -125,7 +125,7 @@
         android:layout_marginEnd="@dimen/common_spacing"
         android:ellipsize="end"
         android:singleLine="true"
-        android:text="5"
+        android:text="0"
         app:layout_constraintStart_toEndOf="@id/share"
         app:layout_constraintTop_toTopOf="@id/downBarier"
         />
@@ -152,7 +152,7 @@
         android:ellipsize="end"
         android:gravity="end"
         android:singleLine="true"
-        android:text="5"
+        android:text="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/glaz"
         app:layout_constraintTop_toTopOf="@id/downBarier" />
