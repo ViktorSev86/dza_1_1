@@ -10,7 +10,7 @@ data class Post(
     var countShare: UInt,
     var countGlaz: UInt
 ) {
-    fun uIntToString(n:UInt):String {
+    fun uIntToString(n:UInt):String {  // Переделать расширением типа
         val res = when {
             n < 1000u -> n.toString()
             n < 10000u -> "${n/1000u}.${n/100u%10u}K"
