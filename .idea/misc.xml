@@ -3,7 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Viktor/AndroidStudioProjects/dz1_1/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/dz1_1/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.162" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/dz1_1/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.162" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/dz1_1/app/src/main/res/drawable/ic_baseline_remove_red_eye_24.xml" value="0.162" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/dz1_1/app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.162" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/dz1_1/app/src/main/res/drawable/ic_channel_background.xml" value="0.162" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/dz1_1/app/src/main/res/drawable/ic_channel_foreground.xml" value="0.162" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/dz1_1/app/src/main/res/drawable/ic_launcher_background.xml" value="0.162" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/dz1_1/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/dz1_1/app/src/main/res/drawable/ic_options_24dp.xml" value="0.162" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/dz1_1/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/dz1_1/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
+        <entry key="..\:/Users/Viktor/AndroidStudioProjects/dz1_1/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.162" />
       </map>
     </option>
   </component>
