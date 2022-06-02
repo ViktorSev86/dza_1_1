@@ -69,13 +69,15 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                  */
                 }
                 share.setOnClickListener {
-                    post.countShare++
-                    countShare.text = post.countShare.uIntToString()
+                    viewModel.share()
+                    /*post.countShare++
+                    countShare.text = post.countShare.uIntToString() */
                 }
 
                 glaz.setOnClickListener {
-                    post.countGlaz++
-                    countGlaz.text = post.countGlaz.uIntToString()
+                    viewModel.glaz()
+                    /*post.countGlaz++
+                    countGlaz.text = post.countGlaz.uIntToString() */
                 }
             }
         }

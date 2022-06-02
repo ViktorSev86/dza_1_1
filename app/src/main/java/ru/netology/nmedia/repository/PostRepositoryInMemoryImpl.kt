@@ -31,4 +31,13 @@ class PostRepositoryInMemoryImpl : PostRepository {
         }
         data.value = post
     }
+
+    override fun share() {
+        post.countShare++
+        data.value = post
+    }
+
+    override fun glaz() {
+        post.countGlaz++
+    }
 }
