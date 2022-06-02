@@ -14,7 +14,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
         published = "21 мая в 18:36",
         likedByMe = false,
         countLikes = 999u,
-        countShare = 1999u,
+        countShare = 99u,
         countGlaz = 999999u
     )
 
@@ -39,5 +39,6 @@ class PostRepositoryInMemoryImpl : PostRepository {
 
     override fun glaz() {
         post.countGlaz++
+        data.value = post
     }
 }
