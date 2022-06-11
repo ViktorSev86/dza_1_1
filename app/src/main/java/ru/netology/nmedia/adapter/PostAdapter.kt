@@ -58,11 +58,12 @@ class PostViewHolder(
                 if (post.likedByMe) R.drawable.ic_liked_favorite_24 else R.drawable.ic_baseline_favorite_border_24
             )
 
-            /*
             likes.setOnClickListener {
-                viewModel.like()
+                onLikeListener(post)
 
             }
+
+            /*
             share.setOnClickListener {
                 viewModel.share()
             }
