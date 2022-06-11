@@ -121,9 +121,10 @@ class PostRepositoryInMemoryImpl : PostRepository {
         posts = posts.map {
             if (it.id != id) it
             else {
-                it.copy(likedByMe = !it.likedByMe,
-                    countLikes = if (!it.likedByMe) ++it.countLikes else --it.countLikes)
+                it.copy(likedByMe = !it.likedByMe)
+
             }
+            //countLikes = if (!it.likedByMe) ++it.countLikes else --it.countLikes)
         }
         data.value = posts
     }
