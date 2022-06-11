@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val adapter = PostsAdapter {
             viewModel.likeById(it.id)
         }
-        binding.posts.adapter = adapter
+        binding.list.adapter = adapter
         viewModel.data.observe(this) { posts ->
             adapter.list = posts
         }
