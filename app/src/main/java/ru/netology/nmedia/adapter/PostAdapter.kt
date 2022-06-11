@@ -63,15 +63,14 @@ class PostViewHolder(
 
             }
 
-            /*
             share.setOnClickListener {
-                viewModel.share()
+                onLikeListener(post)
             }
 
             glaz.setOnClickListener {
-                viewModel.glaz()
+                onLikeListener(post)
             }
-            */
+
         }
     }
 }
