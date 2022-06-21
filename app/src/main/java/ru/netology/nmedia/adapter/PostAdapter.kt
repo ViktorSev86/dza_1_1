@@ -6,9 +6,11 @@ import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 
-typealias OnLikeListener = (post: Post) -> Unit
+//typealias OnLikeListener = (post: Post) -> Unit
 
-class PostsAdapter(private val onLikeListener: OnLikeListener) : RecyclerView.Adapter<PostViewHolder>() {
+class PostsAdapter(private val onLikeListener: (post: Post) -> Unit,
+                   private val onShareListener: (post: Post) -> Unit,
+                   private val onGlazListener: (post: Post) -> Unit) : RecyclerView.Adapter<PostViewHolder>() {
     var list = emptyList<Post>()
         set(value) {
             field = value
@@ -17,7 +19,7 @@ class PostsAdapter(private val onLikeListener: OnLikeListener) : RecyclerView.Ad
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(binding, onLikeListener)
+        return PostViewHolder(binding, onLikeListener, onShareListener, onGlazListener)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
@@ -30,7 +32,9 @@ class PostsAdapter(private val onLikeListener: OnLikeListener) : RecyclerView.Ad
 
 class PostViewHolder(
     private val binding: CardPostBinding,
-    private val onLikeListener: OnLikeListener
+    private val onLikeListener: (post: Post) -> Unit,
+    private val onShareListener: (post: Post) -> Unit,
+    private val onGlazListener: (post: Post) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun UInt.uIntToString():String {  // Переделать расширением типа
@@ -64,11 +68,11 @@ class PostViewHolder(
             }
 
             share.setOnClickListener {
-                onLikeListener(post)
+                onShareListener(post)
             }
 
             glaz.setOnClickListener {
-                onLikeListener(post)
+                onGlazListener(post)
             }
 
         }
