@@ -6,11 +6,13 @@ import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 
-//typealias OnLikeListener = (post: Post) -> Unit
+typealias OnLikeListener = (post: Post) -> Unit
+typealias OnShareListener = (post: Post) -> Unit
+typealias OnGlazListener = (post: Post) -> Unit
 
-class PostsAdapter(private val onLikeListener: (post: Post) -> Unit,
-                   private val onShareListener: (post: Post) -> Unit,
-                   private val onGlazListener: (post: Post) -> Unit) : RecyclerView.Adapter<PostViewHolder>() {
+class PostsAdapter(private val onLikeClicked: OnLikeListener,
+                   private val onShareClicked: OnShareListener,
+                   private val onGlazClicked: OnGlazListener) : RecyclerView.Adapter<PostViewHolder>() {
     var list = emptyList<Post>()
         set(value) {
             field = value
@@ -19,7 +21,7 @@ class PostsAdapter(private val onLikeListener: (post: Post) -> Unit,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(binding, onLikeListener, onShareListener, onGlazListener)
+        return PostViewHolder(binding, onLikeClicked, onShareClicked, onGlazClicked)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
@@ -32,9 +34,9 @@ class PostsAdapter(private val onLikeListener: (post: Post) -> Unit,
 
 class PostViewHolder(
     private val binding: CardPostBinding,
-    private val onLikeListener: (post: Post) -> Unit,
-    private val onShareListener: (post: Post) -> Unit,
-    private val onGlazListener: (post: Post) -> Unit
+    private val onLikeClicked: OnLikeListener,
+    private val onShareClicked: OnShareListener,
+    private val onGlazClicked: OnGlazListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun UInt.uIntToString():String {  // Переделать расширением типа
@@ -63,16 +65,16 @@ class PostViewHolder(
             )
 
             likes.setOnClickListener {
-                onLikeListener(post)
+                onLikeClicked(post)
 
             }
 
             share.setOnClickListener {
-                onShareListener(post)
+                onShareClicked(post)
             }
 
             glaz.setOnClickListener {
-                onGlazListener(post)
+                onGlazClicked(post)
             }
 
         }
