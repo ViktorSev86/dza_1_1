@@ -128,14 +128,23 @@ class PostRepositoryInMemoryImpl : PostRepository {
 
     override fun shareById(id: Long) {
         posts = posts.map {
-            it.copy(countShare = it.countShare + 1u)
+            if (it.id != id) it
+            else it.copy(countShare = it.countShare + 1u)
         }
         data.value = posts
     }
 
     override fun glazById(id: Long) {
         posts = posts.map {
-            it.copy(countGlaz = it.countGlaz + 1u)
+            if (it.id != id) it
+            else it.copy(countGlaz = it.countGlaz + 1u)
+        }
+        data.value = posts
+    }
+
+    override fun delete(postId: Long) {
+        posts = posts.filter {
+            it.id != postId
         }
         data.value = posts
     }

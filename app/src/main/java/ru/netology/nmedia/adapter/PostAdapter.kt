@@ -1,18 +1,17 @@
 package ru.netology.nmedia.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 
-typealias OnLikeListener = (post: Post) -> Unit
-typealias OnShareListener = (post: Post) -> Unit
-typealias OnGlazListener = (post: Post) -> Unit
+//typealias OnLikeListener = (post: Post) -> Unit
+//typealias OnShareListener = (post: Post) -> Unit
+//typealias OnGlazListener = (post: Post) -> Unit
 
-class PostsAdapter(private val onLikeClicked: OnLikeListener,
-                   private val onShareClicked: OnShareListener,
-                   private val onGlazClicked: OnGlazListener) : RecyclerView.Adapter<PostViewHolder>() {
+class PostsAdapter(private val interactionListener: PostInteractionListener) : RecyclerView.Adapter<PostViewHolder>() {
     var list = emptyList<Post>()
         set(value) {
             field = value
@@ -21,7 +20,7 @@ class PostsAdapter(private val onLikeClicked: OnLikeListener,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(binding, onLikeClicked, onShareClicked, onGlazClicked)
+        return PostViewHolder(binding, interactionListener)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
@@ -34,10 +33,25 @@ class PostsAdapter(private val onLikeClicked: OnLikeListener,
 
 class PostViewHolder(
     private val binding: CardPostBinding,
-    private val onLikeClicked: OnLikeListener,
-    private val onShareClicked: OnShareListener,
-    private val onGlazClicked: OnGlazListener
+    private val listener: PostInteractionListener
 ) : RecyclerView.ViewHolder(binding.root) {
+
+    private lateinit var post: Post
+
+    private val popupMenu by lazy {
+        PopupMenu(itemView.context, binding.options).apply {
+            inflate(R.menu.options_post)
+            setOnMenuItemClickListener { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.remove -> {
+                        listener.onRemoveClicked(post)
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }
+    }
 
     fun UInt.uIntToString():String {  // Переделать расширением типа
         val res = when {
@@ -52,6 +66,7 @@ class PostViewHolder(
     }
 
     fun bind(post: Post) {
+        this.post = post
         binding.apply {
             avatar.setImageResource(R.drawable.ic_channel_foreground)
             authorName.text = post.author
@@ -64,17 +79,19 @@ class PostViewHolder(
                 if (post.likedByMe) R.drawable.ic_liked_favorite_24 else R.drawable.ic_baseline_favorite_border_24
             )
 
+            options.setOnClickListener {popupMenu.show()}
+
             likes.setOnClickListener {
-                onLikeClicked(post)
+                listener.onLikeClicked(post)
 
             }
 
             share.setOnClickListener {
-                onShareClicked(post)
+                listener.onShareClicked(post)
             }
 
             glaz.setOnClickListener {
-                onGlazClicked(post)
+                listener.onGlazClicked(post)
             }
 
         }
