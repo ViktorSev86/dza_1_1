@@ -18,7 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top"
-        app:constraint_referenced_ids="content,save" />
+        app:constraint_referenced_ids="content,save"
+        />
     <EditText
         android:id="@+id/content"
         android:layout_width="0dp"
