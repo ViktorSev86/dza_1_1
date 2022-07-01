@@ -7,4 +7,5 @@ interface PostInteractionListener {
     fun onShareClicked(post: Post)
     fun onGlazClicked(post: Post)
     fun onRemoveClicked(post: Post)
+    fun onSaveButtonClicked(content: String)
 }

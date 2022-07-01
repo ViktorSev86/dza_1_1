@@ -1,4 +1,5 @@
 package ru.netology.nmedia.adapter
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
@@ -7,15 +8,12 @@ import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 
-//typealias OnLikeListener = (post: Post) -> Unit
-//typealias OnShareListener = (post: Post) -> Unit
-//typealias OnGlazListener = (post: Post) -> Unit
-
 class PostsAdapter(private val interactionListener: PostInteractionListener) : RecyclerView.Adapter<PostViewHolder>() {
     var list = emptyList<Post>()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
-            notifyDataSetChanged()
+            this.notifyDataSetChanged()
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {

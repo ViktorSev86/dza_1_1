@@ -28,21 +28,6 @@ class PostRepositoryInMemoryImpl : PostRepository {
             )
         })
 
-
-
-/*    private var post = Post(
-        id = 1L,
-        author = "Нетология. Университет интернет-профессий будущего",
-        content = "Привет, это новая Нетология! Когда-то Нетология начиналась с интенсивов по онлайн-маркетингу. Затем появились курсы по дизайну, разработке, аналитике и управлению. Мы растём сами и помогаем расти студентам: от новичков до уверенных профессионалов. Но самое важное остаётся с нами: мы верим, что в каждом уже есть сила, которая заставляет хотеть больше, целиться выше, бежать быстрее. Наша миссия — помочь встать на путь роста и начать цепочку перемен → http://netolo.gy/fyb",
-        published = "21 мая в 18:36",
-        likedByMe = false,
-        countLikes = 999u,
-        countShare = 99u,
-        countGlaz = 999999u
-    )
-
- */
-
     override fun getAll(): LiveData<List<Post>> = data
 
     override fun likeById(id: Long) {
@@ -78,12 +63,18 @@ class PostRepositoryInMemoryImpl : PostRepository {
     }
 
     override fun save(post: Post) {
-        if (post.id == PostRepository.NEW_POST_ID) {
-            insert(post)
-        } else {
-            update(post)
+        if (post.id == 0L) {
+            data.value = listOf(
+                post.copy(
+                    id = nextId++,
+                    author = "Me",
+                    likedByMe = false,
+                    published = "now"
+                )
+            ) + posts
+            data.value = posts
+            return
         }
-
     }
 
     private fun update(post: Post) {
@@ -99,28 +90,6 @@ class PostRepositoryInMemoryImpl : PostRepository {
     }
 
     private companion object {
-        const val GENERATED_POST_AMOUNT = 1000
+        const val GENERATED_POST_AMOUNT = 100
     }
-
-    /*   override fun like() {
-        post = post.copy(likedByMe = !post.likedByMe)
-        if (post.likedByMe) {
-            post.countLikes++
-        } else {
-            post.countLikes--
-        }
-        data.value = post
-    }
-
-    override fun share() {
-        post.countShare++
-        data.value = post
-    }
-
-    override fun glaz() {
-        post.countGlaz++
-        data.value = post
-    }
-
-  */
 }
