@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.view.*
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
@@ -23,6 +24,16 @@ class MainActivity : AppCompatActivity() {
             adapter.list = posts
         }
 
+        viewModel.edited.observe(this) { post ->
+            if (post.id == 0L) {
+                return@observe
+            }
+            with(binding.content) {
+                requestFocus()
+                setText(post.content)
+            }
+        }
+
         binding.save.setOnClickListener {
             with(binding.content) {
                 if (text.isNullOrBlank()) {
@@ -33,9 +44,10 @@ class MainActivity : AppCompatActivity() {
                     ).show()
                     return@setOnClickListener
                 }
+                val t = text.toString()
 
-                viewModel.changeContent(text.toString())
-                viewModel.save()
+                viewModel.changeContent(t)
+                viewModel.save(content = t)
 
                 setText("")
                 clearFocus()

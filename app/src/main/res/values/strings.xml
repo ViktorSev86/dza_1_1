@@ -7,5 +7,7 @@
     <string name="remove">Remove</string>
     <string name="post_text">Post Text</string>
     <string name="description_post_like">Like</string>
+    <string name="update">Update</string>
+    <string name="edit">Edit</string>
 
 </resources>

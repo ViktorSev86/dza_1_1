@@ -23,11 +23,15 @@ class PostViewModel : ViewModel(), PostInteractionListener {
         countGlaz = 0u
     )
 
-    override fun onSaveButtonClicked(content: String) {
-        if (content.isBlank()) return
+    val currentPost = MutableLiveData<Post?>(null)
 
-        repository.save(newPost.copy(content = content))
-    }
+    /*override fun onSaveButtonClicked(content: String) {
+        //if (content.isBlank()) return
+        edited.value?.let {
+            repository.save(it)
+        }
+        edited.value = newPost
+    }*/
 
     override fun onLikeClicked(post: Post) =
         repository.likeById(post.id)
@@ -41,6 +45,11 @@ class PostViewModel : ViewModel(), PostInteractionListener {
     override fun onRemoveClicked(post: Post) =
         repository.delete(post.id)
 
+    override fun edit(post: Post) {
+        currentPost.value = null
+        edited.value = post
+    }
+
     val edited = MutableLiveData(newPost)
 
     fun changeContent(content: String) {
@@ -51,11 +60,8 @@ class PostViewModel : ViewModel(), PostInteractionListener {
         edited.value = edited.value?.copy(content = text)
     }
 
-    fun save() {
-        edited.value?.let {
-            repository.save(it)
-        }
-        edited.value = newPost
+    override fun save(content: String) {
+        edited.value?.let { repository.save(it, content) }
     }
 
 }

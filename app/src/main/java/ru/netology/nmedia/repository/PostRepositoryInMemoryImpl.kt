@@ -62,32 +62,21 @@ class PostRepositoryInMemoryImpl : PostRepository {
         data.value = posts
     }
 
-    override fun save(post: Post) {
+    override fun save(post: Post, content: String) {
         if (post.id == 0L) {
             data.value = listOf(
                 post.copy(
                     id = nextId++,
                     author = "Me",
                     likedByMe = false,
-                    published = "now"
+                    published = "now",
+                    content = content
                 )
             ) + posts
-            data.value = posts
-            return
-        }
+        } else data.value = listOf(
+            post.copy(content = content)) + posts
     }
 
-    private fun update(post: Post) {
-        data.value = posts.map {
-            if (it.id == post.id) post else it
-        }
-
-    }
-
-    private fun insert(post: Post) {
-        data.value = posts + post
-
-    }
 
     private companion object {
         const val GENERATED_POST_AMOUNT = 100
