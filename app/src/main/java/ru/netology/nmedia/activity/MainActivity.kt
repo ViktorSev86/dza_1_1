@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
+import ru.netology.nmedia.util.AndroidUtils
 import ru.netology.nmedia.viewmodel.PostViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
                 setText("")
                 clearFocus()
-                //AndroidUtils.hideKeyboard(this)
+                AndroidUtils.hideKeyboard(this)
             }
         }
     }
