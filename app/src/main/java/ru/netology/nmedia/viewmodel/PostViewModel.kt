@@ -25,14 +25,6 @@ class PostViewModel : ViewModel(), PostInteractionListener {
 
     val currentPost = MutableLiveData<Post?>(null)
 
-    /*override fun onSaveButtonClicked(content: String) {
-        //if (content.isBlank()) return
-        edited.value?.let {
-            repository.save(it)
-        }
-        edited.value = newPost
-    }*/
-
     override fun onLikeClicked(post: Post) =
         repository.likeById(post.id)
 
@@ -62,6 +54,7 @@ class PostViewModel : ViewModel(), PostInteractionListener {
 
     override fun save(content: String) {
         edited.value?.let { repository.save(it, content) }
+        edited.value = newPost
     }
 
 }
