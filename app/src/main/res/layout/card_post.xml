@@ -81,35 +81,43 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="text" />
 
-    <com.google.android.material.checkbox.MaterialCheckBox
+    <com.google.android.material.button.MaterialButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:checkable="true"
         android:id="@+id/likes"
+        style="@style/Widget.AppTheme.LikeCheckbox"
         android:contentDescription="@string/description_post_like"
-        android:button="@drawable/ic_baseline_favorite_border_24"
+        app:icon="@drawable/ic_like_24dp"
         app:layout_constraintTop_toBottomOf="@id/downBarier"
         tools:text="10000"
         />
 
 
-    <com.google.android.material.checkbox.MaterialCheckBox
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/share"
+        android:checkable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:button="@drawable/ic_baseline_share_24"
+        app:icon="@drawable/ic_baseline_share_24"
         app:layout_constraintTop_toBottomOf="@id/downBarier"
+        app:iconTint="@color/cardview_dark_background"
+        android:textColor="@color/cardview_dark_background"
+        style="@style/Widget.AppTheme.ShareCheckbox"
         app:layout_constraintStart_toEndOf="@id/likes"
         tools:text="10000"
         />
 
 
-    <com.google.android.material.checkbox.MaterialCheckBox
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/glaz"
+        android:checkable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="@android:color/transparent"
-        android:button="@drawable/ic_baseline_remove_red_eye_24"
+        app:icon="@drawable/ic_baseline_remove_red_eye_24"
+        app:iconTint="@color/cardview_dark_background"
+        android:textColor="@color/cardview_dark_background"
+        style="@style/Widget.AppTheme.ShareCheckbox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/downBarier"
         tools:text="10000"
