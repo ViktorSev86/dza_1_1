@@ -4,5 +4,10 @@
     <string name="avatar_description">Author avatar</string>
     <string name="author_name">Netology. University of digital works</string>
     <string name="date">21 may 18:36</string>
+    <string name="remove">Remove</string>
+    <string name="post_text">Post Text</string>
+    <string name="description_post_like">Like</string>
+    <string name="update">Update</string>
+    <string name="edit">Edit</string>
 
 </resources>
