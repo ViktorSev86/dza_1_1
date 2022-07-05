@@ -12,4 +12,5 @@ class PostViewModel : ViewModel() {
     fun glazById(id: Long) = repository.glazById(id)
     //fun share() = repository.share()
     //fun glaz() = repository.glaz()
+    //
 }
