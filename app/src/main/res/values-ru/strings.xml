@@ -5,4 +5,9 @@
     <string name="avatar_description">Автор аватара</string>
     <string name="author_name">Нетология. Университет интернет-профессий</string>
     <string name="date">21 мая в 18:36</string>
+    <string name="remove">Удалить</string>
+    <string name="post_text">Текст поста</string>
+    <string name="description_post_like">Like</string>
+    <string name="update">Обновить</string>
+    <string name="edit">Редактировать</string>
 </resources>
