@@ -95,15 +95,14 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/share"
-        android:checkable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:icon="@drawable/ic_baseline_share_24"
-        app:layout_constraintTop_toBottomOf="@id/downBarier"
-        app:iconTint="@color/cardview_dark_background"
-        android:textColor="@color/cardview_dark_background"
+        android:checkable="true"
+        android:id="@+id/share"
         style="@style/Widget.AppTheme.ShareCheckbox"
+        android:contentDescription="@string/description_post_like"
+        app:icon="@drawable/ic_share_24dp"
+        app:layout_constraintTop_toBottomOf="@id/downBarier"
         app:layout_constraintStart_toEndOf="@id/likes"
         tools:text="10000"
         />
@@ -116,7 +115,6 @@
         android:layout_height="wrap_content"
         app:icon="@drawable/ic_baseline_remove_red_eye_24"
         app:iconTint="@color/cardview_dark_background"
-        android:textColor="@color/cardview_dark_background"
         style="@style/Widget.AppTheme.ShareCheckbox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/downBarier"
