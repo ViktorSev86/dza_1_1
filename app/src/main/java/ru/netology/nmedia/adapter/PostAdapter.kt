@@ -1,99 +1,87 @@
 package ru.netology.nmedia.adapter
-import android.annotation.SuppressLint
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 
-class PostsAdapter(private val interactionListener: PostInteractionListener) : RecyclerView.Adapter<PostViewHolder>() {
-    var list = emptyList<Post>()
-        @SuppressLint("NotifyDataSetChanged")
-        set(value) {
-            field = value
-            this.notifyDataSetChanged()
-        }
+interface OnInteractionListener {
+    fun onLike(post: Post) {}
+    fun onEdit(post: Post) {}
+    fun onRemove(post: Post) {}
+    fun onShare(post: Post) {}
+}
 
+class PostsAdapter(
+    private val onInteractionListener: PostInteractionListener,
+) : ListAdapter<Post, PostViewHolder>(PostDiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val binding = CardPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PostViewHolder(binding, interactionListener)
+        return PostViewHolder(binding, onInteractionListener)
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        val post = list[position]
+        val post = getItem(position)
         holder.bind(post)
     }
-
-    override fun getItemCount(): Int = list.size
 }
 
 class PostViewHolder(
     private val binding: CardPostBinding,
-    private val listener: PostInteractionListener
+    private val onInteractionListener: PostInteractionListener,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    private lateinit var post: Post
-
-    private val popupMenu by lazy {
-        PopupMenu(itemView.context, binding.options).apply {
-            inflate(R.menu.options_post)
-            setOnMenuItemClickListener { menuItem ->
-                when (menuItem.itemId) {
-                    R.id.remove -> {
-                        listener.onRemoveClicked(post)
-                        true
-                    }
-                    R.id.edit -> {
-                        listener.edit(post)
-                        true
-                    }
-                    else -> false
-                }
-            }
-        }
-    }
-
-    fun UInt.uIntToString():String {  // Переделать расширением типа
-        val res = when {
-            this < 1000u -> this.toString()
-            this < 10000u -> "${this/1000u}.${this/100u%10u}K"
-            this < 1000000u -> "${this/1000u}K"
-            this < 10000000u -> "${this/1000000u}.${this/100000u%10u}M"
-            this < 100000000u -> "${this/1000000u}M"
-            else -> "много"
-        }
-        return res
-    }
-
     fun bind(post: Post) {
-        this.post = post
         binding.apply {
-            avatar.setImageResource(R.drawable.ic_channel_foreground)
-            authorName.text = post.author
-            date.text = post.published
-            text.text = post.content
-            likes.text = post.countLikes.uIntToString()
-            share.text = post.countShare.uIntToString()
-            glaz.text = post.countGlaz.uIntToString()
-            likes.isChecked = post.likedByMe
+            author.text = post.author
+            published.text = post.published
+            content.text = post.content
+            // в адаптере
+            like.isChecked = post.likedByMe
+            like.text = "${post.likes}"
 
-            options.setOnClickListener {popupMenu.show()}
+            menu.setOnClickListener {
+                PopupMenu(it.context, it).apply {
+                    inflate(R.menu.options_post)
+                    setOnMenuItemClickListener { item ->
+                        when (item.itemId) {
+                            R.id.remove -> {
+                                onInteractionListener.onRemove(post)
+                                true
+                            }
+                            R.id.edit -> {
+                                onInteractionListener.onEdit(post)
+                                true
+                            }
 
-            likes.setOnClickListener {
-                listener.onLikeClicked(post)
+                            else -> false
+                        }
+                    }
+                }.show()
+            }
 
+            like.setOnClickListener {
+                onInteractionListener.onLike(post)
             }
 
             share.setOnClickListener {
-                listener.onShareClicked(post)
+                onInteractionListener.onShare(post)
             }
-
-            glaz.setOnClickListener {
-                listener.onGlazClicked(post)
-            }
-
         }
+    }
+}
+
+class PostDiffCallback : DiffUtil.ItemCallback<Post>() {
+    override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Post, newItem: Post): Boolean {
+        return oldItem == newItem
     }
 }

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- бывший ic_liked -->
     <item
+        android:drawable="@drawable/ic_like_filled_24dp"
         android:state_checked="true"
-        android:drawable="@drawable/ic_liked_favorite_24"
         />
+    <!-- fallback для всех остальных состояний -->
     <item
-        android:state_checked="false"
-        android:drawable="@drawable/ic_baseline_favorite_border_24"
+        android:drawable="@drawable/ic_like_outlined_24dp"
         />
 </selector>
