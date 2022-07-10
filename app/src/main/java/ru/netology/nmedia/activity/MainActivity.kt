@@ -1,6 +1,7 @@
 package ru.netology.nmedia.activity
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.result.launch
 import androidx.activity.viewModels
@@ -38,6 +39,14 @@ class MainActivity : AppCompatActivity() {
 
             override fun onEdit(post: Post) {
                 newPostLauncher.launch()
+            }
+
+            override fun onVideo(post: Post) {
+                val intent = Intent(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=WhWc3b3KhnY")))
+
+                val videoIntent =
+                    Intent.createChooser(intent, "VIDEO")
+                startActivity(videoIntent)
             }
 
             override fun onRemove(post: Post) {
