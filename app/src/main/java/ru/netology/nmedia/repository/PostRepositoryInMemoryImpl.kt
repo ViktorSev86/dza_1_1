@@ -1,5 +1,6 @@
 package ru.netology.nmedia.repository
 
+import android.content.Intent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.dto.Post
@@ -76,15 +77,15 @@ class PostRepositoryInMemoryImpl : PostRepository {
 
     override fun getAll(): LiveData<List<Post>> = data
 
-    override fun save(post: Post) {
+    override fun save(post: Post, content: String) {
         if (post.id == 0L) {
-            // TODO: remove hardcoded author & published
             posts = listOf(
                 post.copy(
                     id = nextId++,
                     author = "Me",
                     likedByMe = false,
-                    published = "now"
+                    published = "now",
+                    content = content
                 )
             ) + posts
             data.value = posts
@@ -92,7 +93,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
         }
 
         posts = posts.map {
-            if (it.id != post.id) it else it.copy(content = post.content)
+            if (it.id != post.id) it else it.copy(content = content)
         }
         data.value = posts
     }
@@ -111,4 +112,5 @@ class PostRepositoryInMemoryImpl : PostRepository {
         posts = posts.filter { it.id != id }
         data.value = posts
     }
+
 }

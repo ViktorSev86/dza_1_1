@@ -21,13 +21,23 @@ class MainActivity : AppCompatActivity() {
 
         val viewModel: PostViewModel by viewModels()
 
+        val newPostLauncher = registerForActivityResult(NewPostResultContract()) { result ->
+            result ?: return@registerForActivityResult
+            viewModel.save(result)
+        }
+
+        binding.fab.setOnClickListener {
+            newPostLauncher.launch()
+        }
+
         val adapter = PostsAdapter(object : PostInteractionListener {
-            override fun onEdit(post: Post) {
-                viewModel.edit(post)
-            }
 
             override fun onLike(post: Post) {
                 viewModel.likeById(post.id)
+            }
+
+            override fun onEdit(post: Post) {
+                newPostLauncher.launch()
             }
 
             override fun onRemove(post: Post) {
@@ -46,19 +56,14 @@ class MainActivity : AppCompatActivity() {
                 startActivity(shareIntent)
             }
         })
+
         binding.list.adapter = adapter
+
         viewModel.data.observe(this) { posts ->
             adapter.submitList(posts)
         }
 
-        val newPostLauncher = registerForActivityResult(NewPostResultContract()) { result ->
-            result ?: return@registerForActivityResult
-            viewModel.changeContent(result)
-            viewModel.save()
-        }
 
-        binding.fab.setOnClickListener {
-            newPostLauncher.launch()
-        }
+
     }
 }
