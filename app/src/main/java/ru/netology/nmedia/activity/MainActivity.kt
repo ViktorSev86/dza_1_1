@@ -3,9 +3,11 @@ package ru.netology.nmedia.activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.card_post.view.*
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.PostInteractionListener
 import ru.netology.nmedia.adapter.PostsAdapter
@@ -19,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         val viewModel: PostViewModel by viewModels()
 
         val newPostLauncher = registerForActivityResult(NewPostResultContract()) { result ->
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.fab.setOnClickListener {
-            newPostLauncher.launch()
+            newPostLauncher.launch("")
         }
 
         val adapter = PostsAdapter(object : PostInteractionListener {
@@ -38,11 +39,12 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onEdit(post: Post) {
-                newPostLauncher.launch()
+                viewModel.edit(post)
+                newPostLauncher.launch(post.content)
             }
 
             override fun onVideo(post: Post) {
-                val intent = Intent(Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=WhWc3b3KhnY")))
+                val intent = Intent(Intent(Intent.ACTION_VIEW, Uri.parse(post.video)))
 
                 val videoIntent =
                     Intent.createChooser(intent, "VIDEO")
