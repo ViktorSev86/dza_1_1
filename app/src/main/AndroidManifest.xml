@@ -34,11 +34,7 @@
             android:name=".activity.NewPostActivity"
             android:exported="false" >
         </activity>
-
-        <activity
-            android:name=".activity.EditPostActivity"
-            android:exported="true">
-        </activity>
+        
     </application>
 
 </manifest>
