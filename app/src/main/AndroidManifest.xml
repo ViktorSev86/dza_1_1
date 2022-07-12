@@ -34,7 +34,7 @@
             android:name=".activity.NewPostActivity"
             android:exported="false" >
         </activity>
-        
+
     </application>
 
 </manifest>
