@@ -65,4 +65,3 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
 
 }
-
