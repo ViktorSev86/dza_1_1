@@ -11,18 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NMedia">
         <activity
-            android:name=".activity.FeedFragment"
-            android:exported="true"
-            tools:ignore="Instantiatable">
+            android:name=".activity.AppActivity"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".activity.IntentHandlerActivity"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -31,12 +28,6 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.NewPostFragment"
-            android:exported="false"
-            tools:ignore="Instantiatable">
-        </activity>
-        
     </application>
 
 </manifest>
