@@ -15,7 +15,7 @@ class PostRepositoryFileImpl(
     private val filename = "posts.json"
     private var posts = emptyList<Post>()
 
-    private var nextId = 1L
+    var nextId: Long = 1L
     init {
         val file = context.filesDir.resolve(filename)
         if (file.exists()) {

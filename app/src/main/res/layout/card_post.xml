@@ -82,25 +82,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/header"
-            app:layout_constraintBottom_toBottomOf="@id/video"
-            tools:text="@sample/posts.json/data/content" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/video"
-            android:layout_width="0dp"
-            android:layout_height="64dp"
-            android:lineSpacingMultiplier="1.5"
-            app:icon="@drawable/ic_baseline_play_arrow_48"
-            android:checkable="true"
-            android:text="Video"
-            android:paddingTop="@dimen/common_spacing"
-            android:paddingBottom="@dimen/common_spacing"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/content"
             app:layout_constraintBottom_toBottomOf="@id/footer"
-            />
-
+            tools:text="@sample/posts.json/data/content" />
 
 
         <androidx.constraintlayout.widget.Barrier

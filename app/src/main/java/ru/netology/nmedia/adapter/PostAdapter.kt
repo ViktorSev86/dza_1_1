@@ -39,9 +39,9 @@ class PostViewHolder(
             // в адаптере
             like.isChecked = post.likedByMe
             like.text = "${post.likes}"
-            if (post.video == null) {
-                video.visibility = View.INVISIBLE
-            } else video.visibility = View.VISIBLE
+            //if (post.video == null) {
+            //    video.visibility = View.INVISIBLE
+            //} else video.visibility = View.VISIBLE
             menu.setOnClickListener {
                 PopupMenu(it.context, it).apply {
                     inflate(R.menu.options_post)
@@ -62,6 +62,10 @@ class PostViewHolder(
                 }.show()
             }
 
+            content.setOnClickListener {
+                onInteractionListener.toPost(post)
+            }
+
             like.setOnClickListener {
                 onInteractionListener.onLike(post)
             }
@@ -70,9 +74,9 @@ class PostViewHolder(
                 onInteractionListener.onShare(post)
             }
 
-            video.setOnClickListener {
-                onInteractionListener.onVideo(post)
-            }
+            //video.setOnClickListener {
+            //    onInteractionListener.onVideo(post)
+            //}
         }
     }
 }

@@ -12,31 +12,25 @@ import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.R
 import ru.netology.nmedia.activity.NewPostFragment.Companion.textArg
 import ru.netology.nmedia.adapter.PostInteractionListener
-import ru.netology.nmedia.adapter.PostsAdapter
-import ru.netology.nmedia.databinding.FragmentFeedBinding
+import ru.netology.nmedia.adapter.PostViewHolder
+import ru.netology.nmedia.databinding.FragmentPostBinding
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.viewmodel.PostViewModel
 
-class FeedFragment : Fragment() {
+class OnePostFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentFeedBinding.inflate(
-            inflater,
-            container,
-            false
-        )
-
+        val binding = FragmentPostBinding.inflate(inflater, container, false)
         val viewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
 
-        binding.fab.setOnClickListener {
-            findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
-        }
-
-        val adapter = PostsAdapter(object : PostInteractionListener {
+        //binding.fab.setOnClickListener {
+        //    findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
+        //}
+        val viewHolder = PostViewHolder(binding.postLayout, object : PostInteractionListener {
 
             override fun onLike(post: Post) {
                 viewModel.likeById(post.id)
@@ -46,14 +40,7 @@ class FeedFragment : Fragment() {
                 viewModel.edit(post)
                 findNavController().navigate(
                     R.id.action_feedFragment_to_newPostFragment,
-                    Bundle().apply {textArg = post.content}
-                        )
-            }
-
-            override fun toPost(post: Post) {
-                findNavController().navigate(
-                    R.id.action_feedFragment_to_onePostFragment,
-                    Bundle().apply {textArg = post.content}
+                    Bundle().apply { textArg = post.content }
                 )
             }
 
@@ -63,6 +50,10 @@ class FeedFragment : Fragment() {
                 val videoIntent =
                     Intent.createChooser(intent, "VIDEO")
                 startActivity(videoIntent)
+            }
+
+            override fun toPost(post: Post) {
+                TODO("Not yet implemented")
             }
 
             override fun onRemove(post: Post) {
@@ -82,13 +73,11 @@ class FeedFragment : Fragment() {
             }
         })
 
-        binding.list.adapter = adapter
+        //viewHolder.bind(post)
 
-        viewModel.data.observe(viewLifecycleOwner) { posts ->
-            adapter.submitList(posts)
-        }
-
-
+        //viewModel.data.observe(viewLifecycleOwner) { posts ->
+        //    adapter.submitList(posts)
+        //}
         return binding.root
     }
 }
