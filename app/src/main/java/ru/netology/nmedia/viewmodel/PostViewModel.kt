@@ -37,4 +37,6 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         edited.value = post
     }
 
+    fun toPostById(id: Long) = repository.toPostById(id)
+
 }

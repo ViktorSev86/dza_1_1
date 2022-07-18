@@ -53,7 +53,7 @@ class FeedFragment : Fragment() {
             override fun toPost(post: Post) {
                 findNavController().navigate(
                     R.id.action_feedFragment_to_onePostFragment,
-                    Bundle().apply {textArg = post.content}
+                    Bundle().apply {textArg = post.id.toString()}
                 )
             }
 

@@ -8,4 +8,5 @@ interface PostRepository {
     fun likeById(id: Long)
     fun save(post: Post, content: String)
     fun removeById(id: Long)
+    fun toPostById(id: Long)
 }

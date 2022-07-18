@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.R
 import ru.netology.nmedia.activity.NewPostFragment.Companion.textArg
@@ -26,10 +28,10 @@ class OnePostFragment : Fragment() {
     ): View? {
         val binding = FragmentPostBinding.inflate(inflater, container, false)
         val viewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
+        val posts = viewModel.data
+        //val index = posts.value.indexOf { post -> post.id == 0}
+        val post1 = posts.value?.last()
 
-        //binding.fab.setOnClickListener {
-        //    findNavController().navigate(R.id.action_feedFragment_to_newPostFragment)
-        //}
         val viewHolder = PostViewHolder(binding.postLayout, object : PostInteractionListener {
 
             override fun onLike(post: Post) {
@@ -53,7 +55,7 @@ class OnePostFragment : Fragment() {
             }
 
             override fun toPost(post: Post) {
-                TODO("Not yet implemented")
+                viewModel.toPostById(post.id)
             }
 
             override fun onRemove(post: Post) {
@@ -73,7 +75,20 @@ class OnePostFragment : Fragment() {
             }
         })
 
-        //viewHolder.bind(post)
+        // для проверки
+        val empty = Post(
+            id = 12,
+            content = "dfgdgdfgdgdfgdgdgfddggd",
+            author = "Me",
+            likedByMe = false,
+            likes = 0,
+            published = "",
+            video = null
+        )
+
+        if (post1 != null) {
+            viewHolder.bind(post1)
+        } else viewHolder.bind(empty)
 
         //viewModel.data.observe(viewLifecycleOwner) { posts ->
         //    adapter.submitList(posts)

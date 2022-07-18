@@ -82,6 +82,12 @@ class PostRepositoryFileImpl(
         sync()
     }
 
+    override fun toPostById(id: Long) {
+        posts = posts.filter { it.id == id }
+        data.value = posts
+        sync()
+    }
+
     private fun sync() {
         context.openFileOutput(filename, Context.MODE_PRIVATE).bufferedWriter().use {
             it.write(gson.toJson(posts))
