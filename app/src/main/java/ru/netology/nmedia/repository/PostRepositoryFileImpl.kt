@@ -14,18 +14,8 @@ class PostRepositoryFileImpl(
     private val type = TypeToken.getParameterized(List::class.java, Post::class.java).type
     private val filename = "posts.json"
     private var posts = emptyList<Post>()
-
-    var nextId: Long = 1L
-    init {
-        val file = context.filesDir.resolve(filename)
-        if (file.exists()) {
-            context.openFileInput(filename).bufferedReader().use {
-                posts = gson.fromJson(it, type)
-                nextId = posts.last().id
-            }
-        } else {
-            sync()
-        }
+    companion object {
+        var nextId: Long = 1L
     }
 
     private val data = MutableLiveData(posts)
@@ -74,6 +64,7 @@ class PostRepositoryFileImpl(
         }
         data.value = posts
         sync()
+        return
     }
 
     override fun removeById(id: Long) {

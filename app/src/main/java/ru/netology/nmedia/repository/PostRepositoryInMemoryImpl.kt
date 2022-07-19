@@ -91,7 +91,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
         if (post.id == 0L) {
             posts = listOf(
                 post.copy(
-                    id = nextId++,
+                    id = posts.last().id + 1,
                     author = "Me",
                     likedByMe = false,
                     published = "now",
@@ -124,6 +124,7 @@ class PostRepositoryInMemoryImpl : PostRepository {
     }
 
     override fun toPostById(id: Long) {
-        TODO("Not yet implemented")
+        posts = posts.filter { it.id == id }
+        data.value = posts
     }
 }

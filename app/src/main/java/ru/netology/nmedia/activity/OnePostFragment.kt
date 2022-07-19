@@ -29,8 +29,22 @@ class OnePostFragment : Fragment() {
         val binding = FragmentPostBinding.inflate(inflater, container, false)
         val viewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
         val posts = viewModel.data
-        //val index = posts.value.indexOf { post -> post.id == 0}
-        val post1 = posts.value?.last()
+        val empty = Post(
+            id = 12,
+            content = "dfgdgdfgdgdfgdgdgfddggd",
+            author = "Me",
+            likedByMe = false,
+            likes = 0,
+            published = "",
+            video = null
+        )
+        var post1: Post = empty
+        for (p in posts.value!!) {
+            if (p.id == arguments?.textArg?.toLong()) {
+                post1 = p
+            }
+        }
+
 
         val viewHolder = PostViewHolder(binding.postLayout, object : PostInteractionListener {
 
@@ -41,7 +55,7 @@ class OnePostFragment : Fragment() {
             override fun onEdit(post: Post) {
                 viewModel.edit(post)
                 findNavController().navigate(
-                    R.id.action_feedFragment_to_newPostFragment,
+                    R.id.action_onePostFragment_to_newPostFragment,
                     Bundle().apply { textArg = post.content }
                 )
             }
@@ -60,6 +74,9 @@ class OnePostFragment : Fragment() {
 
             override fun onRemove(post: Post) {
                 viewModel.removeById(post.id)
+                findNavController().navigate(
+                    R.id.action_onePostFragment_to_newPostFragment
+                )
             }
 
             override fun onShare(post: Post) {
@@ -75,24 +92,7 @@ class OnePostFragment : Fragment() {
             }
         })
 
-        // для проверки
-        val empty = Post(
-            id = 12,
-            content = "dfgdgdfgdgdfgdgdgfddggd",
-            author = "Me",
-            likedByMe = false,
-            likes = 0,
-            published = "",
-            video = null
-        )
-
-        if (post1 != null) {
-            viewHolder.bind(post1)
-        } else viewHolder.bind(empty)
-
-        //viewModel.data.observe(viewLifecycleOwner) { posts ->
-        //    adapter.submitList(posts)
-        //}
+        viewHolder.bind(post1)
         return binding.root
     }
 }
