@@ -28,23 +28,6 @@ class OnePostFragment : Fragment() {
     ): View? {
         val binding = FragmentPostBinding.inflate(inflater, container, false)
         val viewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
-        val posts = viewModel.data
-        val empty = Post(
-            id = 12,
-            content = "dfgdgdfgdgdfgdgdgfddggd",
-            author = "Me",
-            likedByMe = false,
-            likes = 0,
-            published = "",
-            video = null
-        )
-        var post1: Post = empty
-        for (p in posts.value!!) {
-            if (p.id == arguments?.textArg?.toLong()) {
-                post1 = p
-            }
-        }
-
 
         val viewHolder = PostViewHolder(binding.postLayout, object : PostInteractionListener {
 
@@ -74,9 +57,6 @@ class OnePostFragment : Fragment() {
 
             override fun onRemove(post: Post) {
                 viewModel.removeById(post.id)
-                findNavController().navigate(
-                    R.id.action_onePostFragment_to_newPostFragment
-                )
             }
 
             override fun onShare(post: Post) {
@@ -91,8 +71,15 @@ class OnePostFragment : Fragment() {
                 startActivity(shareIntent)
             }
         })
+        
+        viewModel.data.observe(viewLifecycleOwner) { posts ->
+            val post = posts.find { it.id == arguments?.textArg?.toLong() } ?: run {
+                findNavController().popBackStack()
+                return@observe
+            }
+            viewHolder.bind(post)
+        }
 
-        viewHolder.bind(post1)
         return binding.root
     }
 }
